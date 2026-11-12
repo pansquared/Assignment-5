@@ -1,0 +1,163 @@
+Query 1: How many containers of antibiotics are currently available?
+
+Output:
+antibioticContainersAvailable
+
+100
+
+Explanation: This looks only at inventory rows whose description contains the word antibiotics, then adds up the quantity on hand for those rows. The result is one number: the total containers in stock.
+
+
+Query 2: Volunteers whose phone number does not start with 2 and whose last name is not Jones
+Output:
+volunteerName
+Gene Lewin
+
+Explanation: This checks each volunteer's phone number and name. It keeps people whose number does not begin with a 2 and whose name does not end in Jones, and shows just their names. Volunteers with no phone number on file are left out, because there is no number to say it does or doesn't start with 2.
+
+
+Query 3: Volunteers working on transporting tasks
+
+Output:
+volunteerName
+George Brewer
+
+Explanation: This connects each volunteer to their assignments, then to the tasks, then to the task types. It keeps only tasks of type transporting and lists the volunteers' names, each person once.
+
+
+Query 4: Tasks not yet assigned to any volunteer
+
+Output:
+taskDescription
+Prepare 100 food packages
+Take packages to the warehouse
+
+Explanation: This starts with every task and tries to match it to an assignment. Tasks that find no match have nothing assigned to them, so the query keeps only those and shows their descriptions.
+
+
+Query 5: Package types that contain some kind of bottle
+
+Output:
+packageTypeName
+food and water
+
+Explanation: This follows the chain from package type to packages, to what is inside each package, to the items. It keeps items with bottle in their description and lists the package types that hold at least one of them, each type once.
+
+
+Query 6: Items that are not in any package
+Output:
+itemDescription
+bottle of antibiotics
+bottle of aspirin
+flashlight
+pack of bandages
+
+Explanation: This starts with every item and tries to match it to package contents. Items with no match have never been put in a package, so the query keeps only those and shows their descriptions.
+
+
+Query 7: Tasks assigned to volunteers who live in New Jersey
+
+Output:
+taskDescription
+
+Prepare 5,000 packages
+Prepare 20 children's packages
+Prepare 100 water packages
+Prepare 20 children's packages
+
+Explanation: This links tasks to the assignments for them and then to the volunteers doing them. It keeps volunteers whose address ends in NJ and shows the task descriptions. Grouping by task code means each task appears once even when two NJ volunteers share it, while two different tasks with the same description (103 and 108) both show up.
+
+
+Query 8: Volunteers who began their assignments in the first half of 2021
+
+Output:
+volunteerName
+
+Joan Simmons
+Chris Jordan
+
+Explanation: This matches volunteers to their assignments and keeps those whose start date falls from January 1 up to, but not including, July 1, 2021. It shows each matching volunteer's name once.
+
+
+Query 9: Volunteers assigned to tasks that include packing spam
+
+Output:
+volunteerName
+
+Julie White
+Gerry Banks
+
+Explanation: This starts with volunteers and follows their assignments to the packages made for those tasks, then to the package contents and the items. It keeps items described as spam and shows the names of the volunteers on those tasks.
+
+
+Query 10: Items with a total value of exactly $100 in one package
+
+Output:
+itemDescription
+
+Baby formula
+
+Explanation: For each item in each package, this multiplies the item's value by how many of it are in the package. It keeps only the cases where that comes to exactly 100 and shows the item's description.
+
+
+Query 11: Number of volunteers assigned to tasks with each status, highest to lowest
+
+Output:
+taskStatus | numVolunteers
+-----------+--------------
+open       | 4
+closed     | 3
+ongoing    | 2
+pending    | 1
+
+Explanation: This links each task status to its tasks and then to the volunteers assigned to them. It groups by status and counts the different volunteers in each group, then sorts so the status with the most volunteers is first.
+
+
+Query 12: Task that creates the heaviest set of packages, and the weight (no sub-queries)
+
+Output:
+taskCode | totalWeight
+---------+------------
+106      | 308.0
+
+Explanation: This adds up the weight of all packages for each task, sorts the totals from heaviest to lightest, and keeps only the first row. That gives the task code of the heaviest set of packages and its total weight, with no sub-query.
+
+
+Query 13: Number of tasks that do not have the type "packing"
+
+Output:
+nonPackingTasks
+---------------
+3
+
+Explanation: This matches each task to its type and counts the tasks whose type name is anything other than packing.
+
+
+Query 14: Packed items that were touched by fewer than 3 volunteers
+
+Output:
+itemDescription
+---------------
+can of spam
+dried fruit
+men's coat
+sleeping bag
+tent
+women's coat
+
+Explanation: This finds every item that has been placed in a package, then follows each package to its task and to the volunteers assigned to that task. It counts the different volunteers for each item and keeps items where that count is under 3.
+
+
+Query 15: Packages with a total value over 100, lowest to highest
+
+Output:
+packageId | totalValue
+----------+-----------
+6         | 150.0
+2         | 151.0
+4         | 350.0
+10        | 750.0
+5         | 1420.0
+
+Explanation: For each package, this multiplies every item's value by its quantity and adds the results to get the package's total value. It keeps packages worth more than 100 and sorts them from lowest to highest.
+
